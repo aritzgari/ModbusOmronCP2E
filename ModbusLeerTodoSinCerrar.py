@@ -6,7 +6,7 @@ server_port = 502           # Default Modbus TCP port
 
 # Create a Modbus TCP client
 client = ModbusTcpClient(server_ip, server_port)
-while True:
+def entradas():
     # Connect to the Modbus server with a timeout
     lista=[]
 
@@ -17,8 +17,8 @@ while True:
     if connection_result:
         print("Modbus device is reachable.")
         try:
-            for memoria in range(18):
-                    response=client.read_holding_registers(memoria+101,1,1)
+            for memoria in range(100,118):
+                    response=client.read_holding_registers(memoria,1,1)
                     entrada = format(response.registers[0]) #Formatear lo leido con modbus a un binario y añadir 0 hasta tener 5 digitos
                     #Leer cada digito de la variable y añadirla a una lista
                     lista.append(entrada)
@@ -32,7 +32,10 @@ while True:
     # Calculate the time taken
     execution_time = end_time - start_time
     print("Execution time:", execution_time, "seconds")
-    
     # Close the Modbus connection ¡¡¡¡¡Si se cierra tarda un segundo en volver a conectar!!!!!!
     #client.close()
+    return lista
+
+while True: 
+    lista=entradas()
     print(lista)
