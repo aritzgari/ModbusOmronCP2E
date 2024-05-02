@@ -9,13 +9,12 @@ client = ModbusTcpClient(server_ip, server_port)
 while True:
     # Connect to the Modbus server with a timeout
     connection_result = client.connect()
-
     # Read device information
     try:
         response=client.read_holding_registers(120,100,1)
         #print(response.registers[0]) da un número entero con el que indica los estados de las entradas
         binary = format(response.registers[0]) #Formatear lo leido con modbus a un binario y añadir 0 hasta tener 5 digitos
-    #Leer cada digito de la variable y añadirla a una lista    
+        #Leer cada digito de la variable y añadirla a una lista    
         print(binary)
     except Exception as e:
         print(f"Error leyendo: {e}")
