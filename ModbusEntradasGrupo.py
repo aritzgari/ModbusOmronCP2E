@@ -13,9 +13,9 @@ def leergrupo():
         try:
             response=client.read_holding_registers(120,18,1)   
             registers_values = response.registers
-            binary_representations = [format(value) for value in registers_values]
-            int_list = [int(x) for x in binary_representations]
-            print(int_list)
+            binary_representations = [int(format(value)) for (value) in registers_values]
+            #int_list = [int(x) for x in binary_representations]
+            print(binary_representations)
         except Exception as e:
             print(f"Error leyendo: {e}")
         client.close()
